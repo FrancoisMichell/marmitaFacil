@@ -17,7 +17,7 @@ jobs:
  
     strategy:
       matrix:
-        node-version: [12.x, 13.x, 14.x]
+        node-version: [12.x, 13.x]
 
     steps:
     - name: Git checkout
@@ -30,7 +30,8 @@ jobs:
     - name: Start Postgresql service
       uses: Harmon758/postgresql-action@v1.0.0
       with:
-        postgresql user: test
+        postgresql user: user
+        postgresql db: test_db
         postgresql password: password
 
     - run: npm ci
@@ -42,6 +43,5 @@ jobs:
         PORT: 4000
         NODE_ENV: testing
         DATABASE_CONNECTION: pg
-        DATABASE_URL: postgres://test:password@localhost:5432/test
-        DATABASE_DEBUG: "false"
+        DATABASE_URL: postgres://user:password@postgres:5432/test_db
         HASH_DRIVER: bcrypt
