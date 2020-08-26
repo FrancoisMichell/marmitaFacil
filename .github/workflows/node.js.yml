@@ -10,7 +10,22 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    services:
+      # Etiqueta usada para acessar o contêiner de serviço
+      postgres:
+        # Imagem do Docker Hub
+        image: postgres
+        # Fornece a senha para postgres
+        env:
+          POSTGRES_DB: marmitaTest
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: 123456
+        # Define verificações gerais até a inicialização do postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     strategy:
       matrix:
         node-version: [12.x, 13.x, 14.x]
@@ -24,3 +39,18 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+      env:
+        APP_KEY: 06bUs628UukAIZJoAoeIu8Dux0xLBl4O
+        ENV_SILENT: 'true'
+        HOST: localhost
+        PORT: 4000
+        NODE_ENV: testing
+        DATABASE_CONNECTION: pg
+        DATABASE_HOST: postgres
+        DATABASE_PORT: 5432
+        DATABASE_USER: root
+        DATABASE_PASSWORD: 123456
+        DATABASE_DATABASE: marmitaTest
+        DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DATABASE}
+        DATABASE_DEBUG: "false"
+        HASH_DRIVER: bcrypt
