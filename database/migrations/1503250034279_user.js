@@ -11,11 +11,27 @@ class UserSchema extends Schema {
         .uuid('id')
         .primary()
         .defaultTo(this.db.raw('uuid_generate_v4()'))
-      table.string('username', 80).notNullable()
+      table.string('name', 80).notNullable()
+      table
+        .string('cpf', 11)
+        .notNullable()
+        .unique()
+        .index()
       table
         .string('email', 254)
         .notNullable()
         .unique()
+        .index()
+      table
+        .enum('status', ['pending', 'active', 'blocked', 'deleted'])
+        .defaultTo('pending')
+        .notNullable()
+        .index()
+      table
+        .string('reset_password_token')
+        .unique()
+        .index()
+      table.datetime('reset_password_expiry')
       table.string('password', 60).notNullable()
       table.timestamps()
     })

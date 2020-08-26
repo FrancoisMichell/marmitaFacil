@@ -20,6 +20,7 @@
     "func-names": ["warn", "as-needed"],
     "no-use-before-define": ["warn", { "functions": true, "classes": true }],
     "array-callback-return": "warn",
+    "space-before-blocks": "error",
     "no-multi-assign": "off"
   }
 }

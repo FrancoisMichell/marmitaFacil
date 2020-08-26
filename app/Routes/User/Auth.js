@@ -12,6 +12,6 @@ Route.group(() => {
   Route.post('/login', 'AuthController.login').validator('User/Auth/Login')
   Route.post('/', 'AuthController.store').validator('User/Auth/Store')
 })
-  .prefix(`/v1/${lowerNamespace}/${filename}`)
+  .prefix(`/${lowerNamespace}/${filename}`)
   .namespace(namespace)
   .middleware('guest')

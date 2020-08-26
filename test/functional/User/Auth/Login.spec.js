@@ -19,7 +19,7 @@ trait('DatabaseTransactions')
 test('It should login successfully', async ({ client }) => {
   const user = await Factory.model('App/Models/User').create()
   const response = await client
-    .post('/v1/user/auth/login')
+    .post('/user/auth/login')
     .send({ email: user.email, password: 'Password1234' })
     .end()
 
@@ -37,7 +37,7 @@ test('It should login successfully', async ({ client }) => {
 
 test('It should fail to login with unexisting email', async ({ client }) => {
   const response = await client
-    .post('/v1/user/auth/login')
+    .post('/user/auth/login')
     .send({ email: 'email@nao.existe', password: 'Password1234' })
     .end()
   response.assertStatus(401)
@@ -49,7 +49,7 @@ test('It should fail to login with unexisting email', async ({ client }) => {
 
 test('It should fail to login with invalid email', async ({ client }) => {
   const response = await client
-    .post('/v1/user/auth/login')
+    .post('/user/auth/login')
     .send({ email: 'emailinvalido', password: 'PASSWORDINVALIDO' })
     .end()
 
@@ -67,7 +67,7 @@ test('It should fail to login with invalid email', async ({ client }) => {
 
 test('It should fail to login without email', async ({ client }) => {
   const response = await client
-    .post('/v1/user/auth/login')
+    .post('/user/auth/login')
     .send({ email: '', password: 'Password1234' })
     .end()
 
@@ -86,7 +86,7 @@ test('It should fail to login without email', async ({ client }) => {
 test('It should fail to login with invalid password', async ({ client }) => {
   const user = await Factory.model('App/Models/User').create()
   const response = await client
-    .post('/v1/user/auth/login')
+    .post('/user/auth/login')
     .send({ email: user.email, password: 'PASSWORDINVALIDO' })
     .end()
 
@@ -100,7 +100,7 @@ test('It should fail to login with invalid password', async ({ client }) => {
 test('It should fail to login with short password', async ({ client }) => {
   const user = await Factory.model('App/Models/User').create()
   const response = await client
-    .post('/v1/user/auth/login')
+    .post('/user/auth/login')
     .send({ email: user.email, password: '123' })
     .end()
 
@@ -119,7 +119,7 @@ test('It should fail to login with short password', async ({ client }) => {
 test('It should fail to login without password', async ({ client }) => {
   const user = await Factory.model('App/Models/User').create()
   const response = await client
-    .post('/v1/user/auth/login')
+    .post('/user/auth/login')
     .send({ email: user.email, password: '' })
     .end()
 
