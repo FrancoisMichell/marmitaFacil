@@ -54,6 +54,6 @@ jobs:
         DATABASE_USER: postgres
         DATABASE_PASSWORD: postgres
         DATABASE_DATABASE: postgres
-        DATABASE_URL: postgres://postgres:postgres@$postgres:5432/postgres
+        DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DATABASE}
         DATABASE_DEBUG: "false"
         HASH_DRIVER: bcrypt
