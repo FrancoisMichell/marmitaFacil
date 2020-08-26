@@ -39,6 +39,6 @@ jobs:
         PORT: 4000
         NODE_ENV: testing
         DATABASE_CONNECTION: pg
-        DATABASE_URL: postgres://user:password@$postgres:5432/test_db
+        DATABASE_URL: postgres://user:password@$localhost:5432/test_db
         DATABASE_DEBUG: "false"
         HASH_DRIVER: bcrypt
