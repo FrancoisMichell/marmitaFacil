@@ -26,8 +26,7 @@ jobs:
     - name: Start Postgresql service
       uses: Harmon758/postgresql-action@v1.0.0
       with:
-        postgresql db: test_db
-        postgresql user: user
+        postgresql user: test
         postgresql password: password
 
     - run: npm ci
@@ -39,6 +38,6 @@ jobs:
         PORT: 4000
         NODE_ENV: testing
         DATABASE_CONNECTION: pg
-        DATABASE_URL: postgres://user:password@$localhost:5432/test_db
+        DATABASE_URL: postgres://user:password@localhost:5432/test
         DATABASE_DEBUG: "false"
         HASH_DRIVER: bcrypt
