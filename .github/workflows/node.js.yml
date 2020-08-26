@@ -17,9 +17,9 @@ jobs:
         image: postgres
         # Fornece a senha para postgres
         env:
-          POSTGRES_DB: marmitaTest
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: 123456
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           # Mapeia a porta port 5432 tcp no contêiner de serviço com o host
         - 5432:5432
@@ -44,7 +44,7 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
       env:
-        APP_KEY: 06bUs628UukAIZJoAoeIu8Dux0xLBl4O
+        APP_KEY: '06bUs628UukAIZJoAoeIu8Dux0xLBl4O'
         ENV_SILENT: 'true'
         HOST: localhost
         PORT: 4000
@@ -52,9 +52,9 @@ jobs:
         DATABASE_CONNECTION: pg
         DATABASE_HOST: postgres
         DATABASE_PORT: 5432
-        DATABASE_USER: root
-        DATABASE_PASSWORD: 123456
-        DATABASE_DATABASE: marmitaTest
-        DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DATABASE}
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: postgres
+        DATABASE_DATABASE: postgres
+        DATABASE_URL: postgres://postgres:postgres@$postgres:5432/postgres
         DATABASE_DEBUG: "false"
         HASH_DRIVER: bcrypt
