@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Test
 
 on:
   [push]
@@ -10,36 +10,26 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    services:
-      # Etiqueta usada para acessar o contêiner de serviço
-      postgres:
-        # Imagem do Docker Hub
-        image: postgres
-        # Fornece a senha para postgres
-        env:
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test_db
-        ports:
-          # Mapeia a porta port 5432 tcp no contêiner de serviço com o host
-        - 5432:5432
-        # Define verificações gerais até a inicialização do postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
+ 
     strategy:
       matrix:
         node-version: [12.x, 13.x, 14.x]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Git checkout
+      uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Start Postgresql service
+      uses: Harmon758/postgresql-action@v1.0.0
+      with:
+        postgresql db: test_db
+        postgresql user: user
+        postgresql password: password
+
     - run: npm ci
     - run: npm test
       env:
@@ -49,6 +39,6 @@ jobs:
         PORT: 4000
         NODE_ENV: testing
         DATABASE_CONNECTION: pg
-        DATABASE_URL: postgres://test:postgres@$postgres:${{ job.services.postgres.ports[5432] }}/test_db
+        DATABASE_URL: postgres://user:password@$postgres:5432/test_db
         DATABASE_DEBUG: "false"
         HASH_DRIVER: bcrypt
